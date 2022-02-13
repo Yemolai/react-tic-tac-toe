@@ -75,7 +75,7 @@ function App() {
   return (
     <div className="App" data-testId="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <p>Player {playerTurn} {playerMark[playerTurn]} turn:</p>
-      <div style={{
+      <div data-testId="Board" style={{
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',

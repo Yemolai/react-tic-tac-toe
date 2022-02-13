@@ -5,9 +5,16 @@ import App from './App';
 describe("App component", () => {
   test('should render the App', () => {
     render(<App />);
-    const linkElement = screen.getByTestId(/App/i);
+    const appElement = screen.getByTestId(/App/i);
   
-    expect(linkElement).toBeInTheDocument();
+    expect(appElement).toBeInTheDocument();
+  });
+
+  test('should render the board', () => {
+    render(<App />);
+    const boardElement = screen.getByTestId(/Board/i);
+  
+    expect(boardElement).toBeInTheDocument();
   });
 
   test('should set Player A with the first turn', () => {
