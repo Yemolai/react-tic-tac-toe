@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import App from './App';
 
 describe("App component", () => {
@@ -15,6 +15,14 @@ describe("App component", () => {
     const boardElement = screen.getByTestId(/Board/i);
   
     expect(boardElement).toBeInTheDocument();
+  });
+
+  test('should render the board with 9 board marks', () => {
+    render(<App />);
+    const boardElement = screen.getByTestId(/Board/i);
+    const boardMarks = boardElement.childNodes
+  
+    expect(boardMarks.length).toBe(9);
   });
 
   test('should set Player A with the first turn', () => {
