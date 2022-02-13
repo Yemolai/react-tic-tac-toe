@@ -35,7 +35,7 @@ describe("App component", () => {
 
   test('should render the board with 9 board marks', () => {
     const boardElement = screen.getByTestId(/Board/i);
-    const boardMarks = boardElement.childNodes
+    const boardMarks = boardElement.childNodes;
   
     expect(boardMarks.length).toBe(9);
   });
@@ -64,7 +64,7 @@ describe("App component", () => {
     expect(playerATurnTitle).toBeInTheDocument();
     expect(playerBTurnTitle).not.toBeInTheDocument();
 
-    userEvent.click(firstBoardMark)
+    userEvent.click(firstBoardMark);
 
     playerATurnTitle = screen.queryByText("Player A ❌ turn:")
     playerBTurnTitle = screen.queryByText("Player B ⭕ turn:")
@@ -73,5 +73,64 @@ describe("App component", () => {
     expect(playerATurnTitle).not.toBeInTheDocument();
   });
 
+  test('should Player A win when filling the first row', () => {
+    const winAlert = jest.spyOn(window, 'alert');
+    const playerAPlays = [/x0, y0/i, /x0, y1/i, /x0, y2/i]
+    const playerBPlays = [/x1, y0/i, /x1, y1/i]
+    let boardMark;
+
+    playerAPlays.forEach((playerAPlay, index) => {
+      boardMark = screen.getByTestId(playerAPlay);
+      userEvent.click(boardMark);
+
+      if (playerBPlays[index] !== undefined) {
+        boardMark = screen.getByTestId(playerBPlays[index]);
+        userEvent.click(boardMark);
+      }
+    });
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(`Player A won! Congrats!`));
+  });
+
+  test('should Player A win when filling the second row', () => {
+    const winAlert = jest.spyOn(window, 'alert');
+    const playerAPlays = [/x1, y0/i, /x1, y1/i, /x1, y2/i]
+    const playerBPlays = [/x0, y0/i, /x0, y1/i]
+    let boardMark;
+
+    playerAPlays.forEach((playerAPlay, index) => {
+      boardMark = screen.getByTestId(playerAPlay);
+      userEvent.click(boardMark);
+
+      if (playerBPlays[index] !== undefined) {
+        boardMark = screen.getByTestId(playerBPlays[index]);
+        userEvent.click(boardMark);
+      }
+    });
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(`Player A won! Congrats!`));
+  });
+
+  test('should Player A win when filling the third row', () => {
+    const winAlert = jest.spyOn(window, 'alert');
+    const playerAPlays = [/x2, y0/i, /x2, y1/i, /x2, y2/i]
+    const playerBPlays = [/x1, y0/i, /x1, y1/i]
+    let boardMark;
+
+    playerAPlays.forEach((playerAPlay, index) => {
+      boardMark = screen.getByTestId(playerAPlay);
+      userEvent.click(boardMark);
+
+      if (playerBPlays[index] !== undefined) {
+        boardMark = screen.getByTestId(playerBPlays[index]);
+        userEvent.click(boardMark);
+      }
+    });
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(`Player A won! Congrats!`));
+  });
 })
 
