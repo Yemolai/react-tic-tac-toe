@@ -80,17 +80,8 @@ function App() {
           const { player } = boardMark
           return (
             <div
+              className="BoardMark"
               onClick={() => playOn(boardMark)}
-              style={{
-                width: 'calc(calc(100% / 3) - 5px)',
-                height: 'calc(calc(100% / 3) - 5px)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: '-2px',
-                border: 'rgba(0, 0, 0, 0.5) 2px solid',
-                fontSize: 'calc(var(--square-size, 600px) / 15)'
-              }}
             >
               {player ? playerMark[player] : ' '}
             </div>

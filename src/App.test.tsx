@@ -32,6 +32,14 @@ describe("App component", () => {
     expect(boardMarks.length).toBe(9);
   });
 
+  test('should render board marks with the className BoardMark', () => {
+    render(<App />);
+    const boardElement = screen.getByTestId(/Board/i);
+    const boardMarks = boardElement.childNodes;
+  
+    Array.from(boardMarks, boardMark =>  expect(boardMark).toHaveClass("BoardMark"));
+  });
+
   test('should set Player A with the first turn', () => {
     render(<App />);
 
