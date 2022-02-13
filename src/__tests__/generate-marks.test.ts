@@ -1,4 +1,4 @@
-import {generateMarks} from "./generate-marks";
+import {generateMarks} from "../domain/utils/generate-marks";
 
 describe('generate-marks', () => {
   test('should generate 3x3 grid without players', () => {

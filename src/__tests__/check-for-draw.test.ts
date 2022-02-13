@@ -1,6 +1,6 @@
-import { generateMarks } from '../utils/generate-marks'
-import { checkForDraw } from './check-for-draw'
-import { PLAYER_A, PLAYER_B } from '../constants/players'
+import { generateMarks } from '../domain/utils/generate-marks'
+import { checkForDraw } from '../domain/conditions/check-for-draw'
+import { PLAYER_A, PLAYER_B } from '../domain/constants/players'
 
 describe('check-for-draw', () => {
   test('full board is a draw', () => {

@@ -1,6 +1,6 @@
-import { BoardMark } from '../types/board-mark'
-import { PLAYER_A, PLAYER_B } from '../constants/players'
-import {checkForWin} from "./check-for-win";
+import { BoardMark } from '../domain/types/board-mark'
+import { PLAYER_A, PLAYER_B } from '../domain/constants/players'
+import {checkForWin} from "../domain/conditions/check-for-win";
 
 describe('check-for-win', () => {
   test('first row player A win', () => {

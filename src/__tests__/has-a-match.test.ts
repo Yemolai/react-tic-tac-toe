@@ -1,5 +1,5 @@
-import {BoardMark} from "../types/board-mark";
-import {hasAMatch} from "./has-a-match";
+import {BoardMark} from "../domain/types/board-mark";
+import {hasAMatch} from "../domain/utils/has-a-match";
 
 describe('has-a-match', () => {
   test('player A have a match', () => {
