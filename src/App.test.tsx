@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 import App from './App';
 
+const DRAW_MESSAGE = `Game over! No one win. It's a DRAW!`
+
 describe("App component", () => {
   beforeEach(() => render(<App />))
 
@@ -71,6 +73,17 @@ describe("App component", () => {
     
     expect(playerBTurnTitle).toBeInTheDocument();
     expect(playerATurnTitle).not.toBeInTheDocument();
+  });
+
+  test('should Player A and Player B draw', () => {
+    const drawAlert = jest.spyOn(window, 'alert').mockImplementation();
+    const playerAPlays = [/x0, y0/i, /x1, y1/i, /x0, y1/i, /x2, y0/i, /x1, y2/i]
+    const playerBPlays = [/x1, y0/i, /x2, y2/i, /x0, y2/i, /x2, y1/i]
+
+    simulatePlayersPlaying(playerAPlays, playerBPlays);
+
+    expect(drawAlert).toHaveBeenCalledTimes(1);
+    expect(drawAlert).toHaveBeenCalledWith(expect.stringMatching(DRAW_MESSAGE));
   });
 
   test('should Player A win when filling the first row', () => {
