@@ -5,6 +5,9 @@ import App from './App';
 describe("App component", () => {
   beforeEach(() => render(<App />))
 
+  /**
+   * Testing the App, Board and its Marks rendering
+   */
   test('should render the App', () => {
     const appElement = screen.getByTestId(/App/i);
   
@@ -43,6 +46,9 @@ describe("App component", () => {
     Array.from(boardMarks, boardMark =>  expect(boardMark).toHaveClass("BoardMark"));
   });
 
+  /**
+   * Testing the Tic Tac Toe rules
+   */
   test('should set Player A with the first turn', () => {
     const title = screen.getByText("Player A ❌ turn:")
     
