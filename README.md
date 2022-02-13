@@ -1,9 +1,9 @@
 # Tic Tac Toe in React
 
-![Branches Coverage](./coverage/badge-branches.svg)
-![Lines Coverage](./coverage/badge-lines.svg)
-![Stmts Coverage](./coverage/badge-statements.svg)
-![Fns Coverage](./coverage/badge-functions.svg)
+![Branches Coverage](/coverage/badge-branches.svg)
+![Lines Coverage](/coverage/badge-lines.svg)
+![Stmts Coverage](/coverage/badge-statements.svg)
+![Fns Coverage](/coverage/badge-functions.svg)
 
 This project is a responsive HTML5 Tic tac Toe Game built with
 [Create React App 5](https://github.com/facebook/create-react-app) with the Typescript template.
