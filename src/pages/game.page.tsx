@@ -8,6 +8,11 @@ import { generateMarks } from '../domain/utils/generate-marks';
 import { sortMarks } from '../domain/utils/sort-marks';
 import { BoardMark } from '../domain/types/board-mark';
 import { Player } from "../domain/types/player";
+import {replaceStr} from "../domain/utils/replace-str";
+
+import getI18n from "../domain/constants/i18n";
+
+const i18n = getI18n()
 
 export const GamePage = (): JSX.Element => {
   const [playing, setPlaying] = useState<boolean>(false)
@@ -15,6 +20,12 @@ export const GamePage = (): JSX.Element => {
   const [marks, setMarks] = useState<BoardMark[]>(generateMarks())
 
   const orderedMarks = useMemo(() => marks.slice(0).sort(sortMarks), [marks])
+
+  const playerTurnMessage = useMemo<string>(() => {
+    const markText = defaultMarksText[playerTurn]
+    const dict = { player: `${playerTurn} ${markText}` }
+    return replaceStr(i18n.playerTurn, dict)
+  }, [playerTurn])
 
   const playOn = useCallback((mark: BoardMark) => {
     if (!!mark.player || playing) return
@@ -32,9 +43,9 @@ export const GamePage = (): JSX.Element => {
     const winner = checkForWin(orderedMarks)
     if (winner || checkForDraw(orderedMarks)) {
       if (winner) {
-        alert(`Player ${winner} won! Congrats!`)
+        alert(replaceStr(i18n.gameWinMessage, { player: winner }))
       } else {
-        alert(`Game over! No one win. It's a DRAW!`)
+        alert(i18n.gameDrawMessage)
       }
       setMarks(generateMarks())
       setPlayerTurn(PLAYER_A)
@@ -43,7 +54,7 @@ export const GamePage = (): JSX.Element => {
 
   return (
     <div className="App" data-testid="App">
-      <p>Player {playerTurn} {defaultMarksText[playerTurn]} turn:</p>
+      <p>{playerTurnMessage}</p>
       <Board marks={orderedMarks} onMarkClick={playOn} />
     </div>
   );
