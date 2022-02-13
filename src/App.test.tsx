@@ -105,17 +105,50 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledTimes(1);
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(`Player A won! Congrats!`));
   });
+
+  test('should Player B win when filling the first row', () => {
+    const winAlert = jest.spyOn(window, 'alert').mockImplementation();
+    const playerAPlays = [/x1, y0/i, /x2, y1/i, /x2, y2/i]
+    const playerBPlays = [/x0, y0/i, /x0, y1/i, /x0, y2/i]
+
+    simulatePlayersPlaying(playerAPlays, playerBPlays);
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(`Player B won! Congrats!`));
+  });
+
+  test('should Player B win when filling the second row', () => {
+    const winAlert = jest.spyOn(window, 'alert').mockImplementation();
+    const playerAPlays = [/x0, y0/i, /x2, y1/i, /x0, y2/i]
+    const playerBPlays = [/x1, y0/i, /x1, y1/i, /x1, y2/i]
+
+    simulatePlayersPlaying(playerAPlays, playerBPlays);
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(`Player B won! Congrats!`));
+  });
+
+  test('should Player B win when filling the third row', () => {
+    const winAlert = jest.spyOn(window, 'alert').mockImplementation();
+    const playerAPlays = [/x1, y0/i, /x0, y1/i, /x1, y2/i]
+    const playerBPlays = [/x2, y0/i, /x2, y1/i, /x2, y2/i]
+
+    simulatePlayersPlaying(playerAPlays, playerBPlays);
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(`Player B won! Congrats!`));
+  });
 })
 
-const simulatePlayersPlaying = (winnerPlays: RegExp[], loserPlays: RegExp[]) => {
+const simulatePlayersPlaying = (playerAPlays: RegExp[], playerBPlays: RegExp[]) => {
   let boardMark;
 
-  winnerPlays.forEach((winnerPlay, index) => {
-    boardMark = screen.getByTestId(winnerPlay);
+  playerAPlays.forEach((playerAPlay, index) => {
+    boardMark = screen.getByTestId(playerAPlay);
     userEvent.click(boardMark);
 
-    if (loserPlays[index] !== undefined) {
-      boardMark = screen.getByTestId(loserPlays[index]);
+    if (playerBPlays[index] !== undefined) {
+      boardMark = screen.getByTestId(playerBPlays[index]);
       userEvent.click(boardMark);
     }
   });
