@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .App-logo {
@@ -35,4 +38,25 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: var(--square-size, calc(100vw - 120px));
+  height: var(--square-size, calc(100vh - 120px));
+  margin: 6px;
+}
+
+.BoardMark {
+  width: calc(calc(100% / 3) - 5px);
+  height: calc(calc(100% / 3) - 5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -2px;
+  border: rgba(0, 0, 0, 0.5) 2px solid;
+  font-size: calc(var(--square-size, 600px) / 15);
 }

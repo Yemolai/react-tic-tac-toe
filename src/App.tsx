@@ -73,32 +73,17 @@ function App() {
     }
   }, [orderedMarks, playerTurn])
   return (
-    <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className="App" data-testid="App">
       <p>Player {playerTurn} {playerMark[playerTurn]} turn:</p>
-      <div style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 'var(--square-size, calc(100vw - 120px))',
-        height: 'var(--square-size, calc(100vh - 120px))',
-        margin: '6px'
-      }}>
+      <div className="Board" data-testid="Board">
         {orderedMarks.map((boardMark) => {
           const { player } = boardMark
           return (
             <div
+              className="BoardMark"
+              key={`x${boardMark.x}, y${boardMark.y}`}
+              data-testid={`x${boardMark.x}, y${boardMark.y}`}
               onClick={() => playOn(boardMark)}
-              style={{
-                width: 'calc(calc(100% / 3) - 5px)',
-                height: 'calc(calc(100% / 3) - 5px)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: '-2px',
-                border: 'rgba(0, 0, 0, 0.5) 2px solid',
-                fontSize: 'calc(var(--square-size, 600px) / 15)'
-              }}
             >
               {player ? playerMark[player] : ' '}
             </div>
