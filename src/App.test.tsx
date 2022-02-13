@@ -91,7 +91,7 @@ describe("App component", () => {
     expect(playerATurnTitle).not.toBeInTheDocument();
   });
 
-  test('should Player A and Player B draw', () => {
+  test('should an alert appear and Player A and Player B draw', () => {
     const drawAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = [/x0, y0/i, /x1, y1/i, /x0, y1/i, /x2, y0/i, /x1, y2/i];
     const playerBPlays = [/x1, y0/i, /x2, y2/i, /x0, y2/i, /x2, y1/i];
@@ -102,7 +102,7 @@ describe("App component", () => {
     expect(drawAlert).toHaveBeenCalledWith(expect.stringMatching(DRAW_MESSAGE));
   });
 
-  test('should Player A win when filling the first row', () => {
+  test('should an alert appear and Player A win when he/she marks the first row', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = FIRST_ROW_MARKS;
     const playerBPlays = [/x1, y0/i, /x1, y1/i];
@@ -113,7 +113,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_A_WIN_ALERT_TITLE));
   });
 
-  test('should Player A win when filling the second row', () => {
+  test('should an alert appear and Player A win when he/she marks the second row', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = SECOND_ROW_MARKS;
     const playerBPlays = [/x0, y0/i, /x0, y1/i];
@@ -124,7 +124,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_A_WIN_ALERT_TITLE));
   });
 
-  test('should Player A win when filling the third row', () => {
+  test('should an alert appear and Player A win when he/she marks the third row', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = THIRD_ROW_MARKS;
     const playerBPlays = [/x1, y0/i, /x1, y1/i];
@@ -135,7 +135,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_A_WIN_ALERT_TITLE));
   });
 
-  test('should Player B win when filling the first row', () => {
+  test('should an alert appear and Player B win when he/she marks the first row', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = [/x1, y0/i, /x2, y1/i, /x2, y2/i];
     const playerBPlays = FIRST_ROW_MARKS;
@@ -146,7 +146,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_B_WIN_ALERT_TITLE));
   });
 
-  test('should Player B win when filling the second row', () => {
+  test('should an alert appear and Player B win when he/she marks the second row', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = [/x0, y0/i, /x2, y1/i, /x0, y2/i];
     const playerBPlays = [/x1, y0/i, /x1, y1/i, /x1, y2/i];
@@ -157,7 +157,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_B_WIN_ALERT_TITLE));
   });
 
-  test('should Player B win when filling the third row', () => {
+  test('should an alert appear and Player B win when he/she marks the third row', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = [/x1, y0/i, /x0, y1/i, /x1, y2/i];
     const playerBPlays = THIRD_ROW_MARKS;
@@ -168,7 +168,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_B_WIN_ALERT_TITLE));
   });
 
-  test('should Player A win when filling the first column', () => {
+  test('should an alert appear and Player A win when he/she marks the first column', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = FIRST_COLUMN_MARKS;
     const playerBPlays = [/x1, y0/i, /x1, y1/i];
@@ -179,7 +179,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_A_WIN_ALERT_TITLE));
   });
 
-  test('should Player A win when filling the second column', () => {
+  test('should an alert appear and Player A win when he/she marks the second column', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = SECOND_COLUMN_MARKS;
     const playerBPlays = [/x0, y0/i, /x0, y1/i];
@@ -190,7 +190,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_A_WIN_ALERT_TITLE));
   });
 
-  test('should Player A win when filling the third column', () => {
+  test('should an alert appear and Player A win when he/she marks the third column', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = THIRD_COLUMN_MARKS;
     const playerBPlays = [/x1, y0/i, /x1, y1/i];
@@ -201,7 +201,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_A_WIN_ALERT_TITLE));
   });
 
-  test('should Player B win when filling the first column', () => {
+  test('should an alert appear and Player B win when he/she marks the first column', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = [/x1, y0/i, /x2, y1/i, /x1, y2/i]
     const playerBPlays = FIRST_ROW_MARKS;
@@ -212,7 +212,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_B_WIN_ALERT_TITLE));
   });
 
-  test('should Player B win when filling the second column', () => {
+  test('should an alert appear and Player B win when he/she marks the second column', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = [/x0, y0/i, /x0, y1/i, /x2, y2/i];
     const playerBPlays = SECOND_COLUMN_MARKS;
@@ -223,7 +223,7 @@ describe("App component", () => {
     expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_B_WIN_ALERT_TITLE));
   });
 
-  test('should Player B win when filling the third column', () => {
+  test('should an alert appear and Player B win when he/she marks the third column', () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = [/x0, y0/i, /x0, y1/i, /x1, y2/i];
     const playerBPlays = THIRD_ROW_MARKS;
