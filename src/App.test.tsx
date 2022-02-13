@@ -17,6 +17,13 @@ describe("App component", () => {
     expect(boardElement).toBeInTheDocument();
   });
 
+  test('should render the board with the className Board', () => {
+    render(<App />);
+    const boardElement = screen.getByTestId(/Board/i);
+  
+    expect(boardElement).toHaveClass("Board");
+  });
+
   test('should render the board with 9 board marks', () => {
     render(<App />);
     const boardElement = screen.getByTestId(/Board/i);

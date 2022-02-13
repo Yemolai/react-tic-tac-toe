@@ -75,15 +75,7 @@ function App() {
   return (
     <div className="App" data-testId="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <p>Player {playerTurn} {playerMark[playerTurn]} turn:</p>
-      <div data-testId="Board" style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 'var(--square-size, calc(100vw - 120px))',
-        height: 'var(--square-size, calc(100vh - 120px))',
-        margin: '6px'
-      }}>
+      <div className="Board" data-testId="Board">
         {orderedMarks.map((boardMark) => {
           const { player } = boardMark
           return (

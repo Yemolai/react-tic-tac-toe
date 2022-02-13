@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.Board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: var(--square-size, calc(100vw - 120px));
+  height: var(--square-size, calc(100vh - 120px));
+  margin: 6px;
+}
