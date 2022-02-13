@@ -73,14 +73,16 @@ function App() {
     }
   }, [orderedMarks, playerTurn])
   return (
-    <div className="App" data-testId="App">
+    <div className="App" data-testid="App">
       <p>Player {playerTurn} {playerMark[playerTurn]} turn:</p>
-      <div className="Board" data-testId="Board">
+      <div className="Board" data-testid="Board">
         {orderedMarks.map((boardMark) => {
           const { player } = boardMark
           return (
             <div
               className="BoardMark"
+              key={`x${boardMark.x}, y${boardMark.y}`}
+              data-testid={`x${boardMark.x}, y${boardMark.y}`}
               onClick={() => playOn(boardMark)}
             >
               {player ? playerMark[player] : ' '}

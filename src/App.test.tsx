@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import userEvent from "@testing-library/user-event";
 import App from './App';
 
 describe("App component", () => {
@@ -53,6 +54,23 @@ describe("App component", () => {
     const title = screen.getByText("Player A ❌ turn:")
     
     expect(title).toBeInTheDocument();
+  });
+
+  test('should set Player B with the second turn', () => {
+    const firstBoardMark = screen.getByTestId(/x0, y0/i);
+    let playerATurnTitle = screen.queryByText("Player A ❌ turn:")
+    let playerBTurnTitle = screen.queryByText("Player B ⭕ turn:")
+
+    expect(playerATurnTitle).toBeInTheDocument();
+    expect(playerBTurnTitle).not.toBeInTheDocument();
+
+    userEvent.click(firstBoardMark)
+
+    playerATurnTitle = screen.queryByText("Player A ❌ turn:")
+    playerBTurnTitle = screen.queryByText("Player B ⭕ turn:")
+    
+    expect(playerBTurnTitle).toBeInTheDocument();
+    expect(playerATurnTitle).not.toBeInTheDocument();
   });
 
 })
