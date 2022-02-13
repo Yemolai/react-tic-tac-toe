@@ -1,5 +1,5 @@
-import { BoardMark } from '../types/board-mark';
-import {sortMarks} from "./sort-marks";
+import { BoardMark } from '../domain/types/board-mark';
+import {sortMarks} from "../domain/utils/sort-marks";
 
 describe('sort-marks', () => {
   test('should properly order a 2x2 array of marks', () => {

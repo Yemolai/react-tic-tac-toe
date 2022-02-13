@@ -28,6 +28,14 @@
       "react-app/jest"
     ]
   },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "\/constants\/",
+      "\/types\/",
+      "src/reportWebVitals.ts",
+      "src/index.tsx"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
