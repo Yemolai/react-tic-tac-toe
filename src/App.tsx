@@ -27,20 +27,34 @@ const sortByXAndY = ({ x: x1, y: y1 }: BoardMark, { x: x2, y: y2 }: BoardMark): 
 const hasAMatch = (player: Player, marks: BoardMark[]) => marks.every(({ player: p }) => p && player.toString() == p.toString())
 
 const checkWinningCondition = (board: BoardMark[]): Player | null => {
-  const positions: Position[] = [0, 1, 2]
-  const rows: BoardMark[][] = positions.map(index => board.filter(({ x }) => x === index))
-  const columns: BoardMark[][] = positions.map(index => board.filter(({ y }) => y === index))
-  const playerAHaveARow = rows.some(row => hasAMatch('A', row))
-  const playerAHaveACol = columns.some(col => hasAMatch('A', col))
-  if (playerAHaveARow || playerAHaveACol) {
-    return 'A'
+  const positions: Position[] = [0, 1, 2];
+  const rows: BoardMark[][] = positions.map(index => board.filter(({ x }) => x === index));
+  const columns: BoardMark[][] = positions.map(index => board.filter(({ y }) => y === index));
+  
+  const hasPlayerAMatch = hasPlayerMatch('A', rows, columns);
+
+  if (hasPlayerAMatch) {
+    return 'A';
   }
-  const playerBHaveARow = rows.some(row => hasAMatch('B', row))
-  const playerBHaveACol = columns.some(col => hasAMatch('B', col))
-  if (playerBHaveARow || playerBHaveACol) {
-    return 'B'
+
+  const hasPlayerBMatch = hasPlayerMatch('B', rows, columns);
+
+  if (hasPlayerBMatch) {
+    return 'B';
   }
+  
   return null
+}
+
+const hasPlayerMatch = (player: Player, rows: BoardMark[][], columns: BoardMark[][]): boolean => {
+  const hasPlayerMatchARow = hasPlayerMatchARowOrAColumn(player, rows);
+  const hasPlayerMatchAColumn = hasPlayerMatchARowOrAColumn(player, columns);
+
+  return hasPlayerMatchARow || hasPlayerMatchAColumn
+}
+
+const hasPlayerMatchARowOrAColumn = (player: Player, rowsOrColumns: BoardMark[][]): boolean => {
+  return rowsOrColumns.some(rowOrColumn => hasAMatch(player, rowOrColumn));
 }
 
 const checkGameOverCondition = (board: BoardMark[]): boolean => {
