@@ -31,8 +31,6 @@ const checkWinningCondition = (board: BoardMark[]): Player | null => {
   const rows: BoardMark[][] = positions.map(index => board.filter(({ x }) => x === index));
   const columns: BoardMark[][] = positions.map(index => board.filter(({ y }) => y === index));
 
-  // console.log(rows)
-  
   const hasPlayerAMatch = hasPlayerMatch('A', rows, columns);
 
   if (hasPlayerAMatch) {
@@ -51,9 +49,8 @@ const checkWinningCondition = (board: BoardMark[]): Player | null => {
 const hasPlayerMatch = (player: Player, rows: BoardMark[][], columns: BoardMark[][]): boolean => {
   const hasPlayerMatchARow: boolean = hasPlayerMatchARowOrAColumn(player, rows);
   const hasPlayerMatchAColumn: boolean = hasPlayerMatchARowOrAColumn(player, columns);
-  const hasPlayerMatchADiagonal: boolean = hasPlayerMatchAnyDiagonal(player, rows)
 
-  return hasPlayerMatchARow || hasPlayerMatchAColumn || hasPlayerMatchADiagonal
+  return hasPlayerMatchARow || hasPlayerMatchAColumn
 }
 
 const hasPlayerMatchARowOrAColumn = (player: Player, rowsOrColumns: BoardMark[][]): boolean => {
