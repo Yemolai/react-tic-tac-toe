@@ -21,6 +21,9 @@ const FIRST_COLUMN_MARKS: RegExp[] = [/x0, y0/i, /x0, y1/i, /x0, y2/i];
 const SECOND_COLUMN_MARKS: RegExp[] = [/x1, y0/i, /x1, y1/i, /x1, y2/i];
 const THIRD_COLUMN_MARKS: RegExp[] = [/x2, y0/i, /x2, y1/i, /x2, y2/i];
 
+const DIAGONAL_FROM_X0_Y0_MARK: RegExp[] = [/x0, y0/i, /x1, y1/i, /x2, y2/i];
+const DIAGONAL_FROM_X2_Y0_MARK: RegExp[] = [/x2, y0/i, /x1, y1/i, /x0, y2/i];
+
 describe("App component", () => {
   beforeEach(() => render(<App />))
 
@@ -227,6 +230,50 @@ describe("App component", () => {
     const winAlert = jest.spyOn(window, 'alert').mockImplementation();
     const playerAPlays = [/x0, y0/i, /x0, y1/i, /x1, y2/i];
     const playerBPlays = THIRD_ROW_MARKS;
+
+    simulatePlayersPlaying(playerAPlays, playerBPlays);
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_B_WIN_ALERT_TITLE));
+  });
+
+  test('should an alert appear and Player A win when he/she marks a diagonal starting at the x0, y0', () => {
+    const winAlert = jest.spyOn(window, 'alert').mockImplementation();
+    const playerAPlays = DIAGONAL_FROM_X0_Y0_MARK;
+    const playerBPlays = [/x0, y1/i, /x0, y2/i];
+
+    simulatePlayersPlaying(playerAPlays, playerBPlays);
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_A_WIN_ALERT_TITLE));
+  });
+
+  test('should an alert appear and Player A win when he/she marks a diagonal starting at the x2, y0', () => {
+    const winAlert = jest.spyOn(window, 'alert').mockImplementation();
+    const playerAPlays = DIAGONAL_FROM_X2_Y0_MARK;
+    const playerBPlays = [/x0, y1/i, /x0, y0/i];
+
+    simulatePlayersPlaying(playerAPlays, playerBPlays);
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_A_WIN_ALERT_TITLE));
+  });
+
+  test('should an alert appear and Player B win when he/she marks a diagonal starting at the x0, y0', () => {
+    const winAlert = jest.spyOn(window, 'alert').mockImplementation();
+    const playerAPlays = [/x0, y1/i, /x0, y2/i, /x1, y0/i];
+    const playerBPlays = DIAGONAL_FROM_X0_Y0_MARK;
+
+    simulatePlayersPlaying(playerAPlays, playerBPlays);
+
+    expect(winAlert).toHaveBeenCalledTimes(1);
+    expect(winAlert).toHaveBeenCalledWith(expect.stringMatching(PLAYER_B_WIN_ALERT_TITLE));
+  });
+
+  test('should an alert appear and Player B win when he/she marks a diagonal starting at the x2, y0', () => {
+    const winAlert = jest.spyOn(window, 'alert').mockImplementation();
+    const playerAPlays = [/x0, y1/i, /x0, y0/i, /x1, y0/i];
+    const playerBPlays = DIAGONAL_FROM_X2_Y0_MARK;
 
     simulatePlayersPlaying(playerAPlays, playerBPlays);
 
