@@ -30,6 +30,8 @@ const checkWinningCondition = (board: BoardMark[]): Player | null => {
   const positions: Position[] = [0, 1, 2];
   const rows: BoardMark[][] = positions.map(index => board.filter(({ x }) => x === index));
   const columns: BoardMark[][] = positions.map(index => board.filter(({ y }) => y === index));
+
+  // console.log(rows)
   
   const hasPlayerAMatch = hasPlayerMatch('A', rows, columns);
 
@@ -47,14 +49,40 @@ const checkWinningCondition = (board: BoardMark[]): Player | null => {
 }
 
 const hasPlayerMatch = (player: Player, rows: BoardMark[][], columns: BoardMark[][]): boolean => {
-  const hasPlayerMatchARow = hasPlayerMatchARowOrAColumn(player, rows);
-  const hasPlayerMatchAColumn = hasPlayerMatchARowOrAColumn(player, columns);
+  const hasPlayerMatchARow: boolean = hasPlayerMatchARowOrAColumn(player, rows);
+  const hasPlayerMatchAColumn: boolean = hasPlayerMatchARowOrAColumn(player, columns);
+  const hasPlayerMatchADiagonal: boolean = hasPlayerMatchAnyDiagonal(player, rows)
 
-  return hasPlayerMatchARow || hasPlayerMatchAColumn
+  return hasPlayerMatchARow || hasPlayerMatchAColumn || hasPlayerMatchADiagonal
 }
 
 const hasPlayerMatchARowOrAColumn = (player: Player, rowsOrColumns: BoardMark[][]): boolean => {
   return rowsOrColumns.some(rowOrColumn => hasAMatch(player, rowOrColumn));
+}
+
+const hasPlayerMatchAnyDiagonal = (player: Player, rows: BoardMark[][]): boolean => {
+  const topLeftToBottomRightDiagonalBoardMarks: BoardMark[] = [
+    {x: 0, y: 0},
+    {x: 1, y: 1},
+    {x: 2, y: 2}
+  ]
+  
+  const bottomLeftToTopRightDiagonalBoardMarks: BoardMark[] = [
+    {x: 2, y: 0},
+    {x: 1, y: 1},
+    {x: 0, y: 2}
+  ]
+
+  const upperLeftToBottomRightDiagonal: BoardMark[] = getDiagonalBoardMarks(player, rows, topLeftToBottomRightDiagonalBoardMarks);
+  const bottomLeftToTopRightDiagonal: BoardMark[] = getDiagonalBoardMarks(player, rows, bottomLeftToTopRightDiagonalBoardMarks);
+
+  return hasAMatch(player, upperLeftToBottomRightDiagonal) || hasAMatch(player, bottomLeftToTopRightDiagonal)
+}
+
+const getDiagonalBoardMarks = (player: Player, rows: BoardMark[][], diagonalRule: BoardMark[]): BoardMark[] => {
+  return rows.map(row => {
+    return row.find(boardMark => diagonalRule.some(diagonalMark => diagonalMark.x === boardMark.x && diagonalMark.y === boardMark.y))
+  }) as BoardMark[];
 }
 
 const checkGameOverCondition = (board: BoardMark[]): boolean => {
