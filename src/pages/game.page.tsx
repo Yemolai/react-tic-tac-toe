@@ -42,9 +42,9 @@ export const GamePage = (): JSX.Element => {
   }, [orderedMarks, playerTurn])
 
   return (
-    <div className="App" data-testid="App">
+    <>
       <p>Player {playerTurn} {defaultMarksText[playerTurn]} turn:</p>
       <Board marks={orderedMarks} onMarkClick={playOn} />
-    </div>
+    </>
   );
 }
