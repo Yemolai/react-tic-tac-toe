@@ -60,3 +60,18 @@
   border: rgba(0, 0, 0, 0.5) 2px solid;
   font-size: calc(var(--square-size, 600px) / 15);
 }
+
+.header-line {
+  width: var(--square-size, calc(100vw - 120px));
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.diagonal-option-toggle {
+  height: 100%;
+  vertical-align: center;
+  margin-right: 8px;
+}
