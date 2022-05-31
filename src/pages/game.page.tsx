@@ -7,9 +7,13 @@ import { generateMarks } from '../domain/utils/generate-marks';
 import { sortMarks } from '../domain/utils/sort-marks';
 import { BoardMark } from '../domain/types/board-mark';
 import { Player } from "../domain/types/player";
+import { replaceStr } from "../domain/utils/replace-str";
+import getI18n from "../domain/constants/i18n";
 import { GameOptions } from '../domain/types/game-options';
 import { playOnBoard } from "../domain/utils/play-on-board";
 import { SOLO_STORAGE_KEY } from "../domain/constants/solo-storage-key";
+
+const i18n = getI18n()
 
 export const GamePage = (): JSX.Element => {
   const [playing, setPlaying] = useState<boolean>(false)
@@ -39,6 +43,12 @@ export const GamePage = (): JSX.Element => {
     setOptions(prevOptions => ({ ...prevOptions, diagonals: !prevOptions?.diagonals }))
   }, [startedPlaying, setOptions])
 
+  const playerTurnMessage = useMemo<string>(() => {
+    const markText = defaultMarksText[playerTurn]
+    const dict = { player: `${playerTurn} ${markText}` }
+    return replaceStr(i18n.playerTurn, dict)
+  }, [playerTurn])
+
   const playOn = useCallback((mark: BoardMark) => {
     if (playing) return
     setPlaying(true)
@@ -51,18 +61,15 @@ export const GamePage = (): JSX.Element => {
   }, [marks, playerTurn, playing])
 
   useEffect(() => {
-    switch (checkForGameOver(orderedMarks, options)) {
-      case PLAYER_A:
-        alert(`Player A won! Congrats!`)
-        break;
-      case PLAYER_B:
-        alert(`Player B won! Congrats!`)
-        break;
-      case 'draw':
-        alert(`Game over! No one win. It's a DRAW!`)
-        break;
-      default:
-        return
+    const winner = checkForWin(orderedMarks)
+    if (winner || checkForDraw(orderedMarks)) {
+      if (winner) {
+        alert(replaceStr(i18n.gameWinMessage, { player: winner }))
+      } else {
+        alert(i18n.gameDrawMessage)
+      }
+      setMarks(generateMarks())
+      setPlayerTurn(PLAYER_A)
     }
     setMarks(generateMarks())
     setPlayerTurn(PLAYER_A)
@@ -72,7 +79,7 @@ export const GamePage = (): JSX.Element => {
     <div className="App" data-testid="App">
       <div className="header-line">
         <p><b>Tic Tac Toe</b> Solo Game</p>
-        <p>Player {playerTurn} {defaultMarksText[playerTurn]} turn:</p>
+        <p>{playerTurnMessage}</p>
         <p className="diagonal-option-toggle">
           <input type="checkbox" disabled={startedPlaying} onClick={handleToggleDiagonal} checked={!!options?.diagonals} />
           <span>Allow Diagonal Win</span>
